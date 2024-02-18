@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <style>
+		@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&display=swap');
+		:root {
+			--bf: #ddd;
+		}
+		body {
+			background: #222; 
+			color: var(--bf);
+            font-family: "Roboto Mono", monospace;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+		}
+		h1 {
+            text-align: center;
+            color: #73b4da;
+		}
+        hr {
+            border-top: 3px dashed #5173a9;
+            border-bottom: 0px;
+            width: 75%;
+			align-content: center;
+        }
+		pre,textarea {
+			font-family: Consolas,"courier new";
+			width: 75%;
+			color: #73b4da;
+			min-height: 3rem;
+			background-color: #262626;
+			padding: 2px;
+			font-size: 105%;
+		}
+		</style>
+    </head>
+		<body>
+			<h1>Password Generator</h1>
+			<hr>
+			<!-- <h3>Options:</h3>
+			<ul>
+				<li><b>Length:</b> <font color='#73b4da'>6 - 100</font></li>
+				<li><b>Lowercase Letters:</b> <font color='#73dab4'>true</font> / <font color='#da73b4'>false</font></li>
+				<li><b>Uppercase letters:</b> <font color='#73dab4'>true</font> / <font color='#da73b4'>false</font></li>
+				<li><b>Numbers:</b> <font color='#73dab4'>true</font> / <font color='#da73b4'>false</font></li>
+				<li><b>Symbols:</b> <font color='#73dab4'>true</font> / <font color='#da73b4'>false</font></li>
+				<li><b>First Character</b></li>
+				<ol>
+					<li>Uppercase</li>
+					<li>Lowercase</li>
+					<li>Upper or Lowercase</li>
+					<li>Number</li>
+					<li>Start with Any</li>
+				</ol>
+			</ul> -->
+			<h3>Options:</h3>
+			<textarea rows="12">
+length    (int)  : 6 - 100
+lowercase (bool) : true / false
+uppercase (bool) : true / false
+number    (bool) : true / false
+symbol    (bool) : true / false
+firstChar (int)  : 1 - 5
+	1: Uppercase
+	2: Lowercase
+	3: Upper or Lowercase
+	4: Number
+	5: Start with Any
+			</textarea>
+            <br>
+
+			<h3>Using this endpoint with GET:</h3>
+			endpoint:<br>
+			<textarea rows="1">
+{base url}/generate/{length}/{lowercase}/{uppercase}/{number}/{symbol}/{firstChar}
+			</textarea>
+			<br>
+			<br>
+			<i>Example cURL:</i><br>
+			<textarea rows="1">
+curl -X GET {base url}/generate/17/true/true/true/false/3
+			</textarea><br>
+			<br>
+
+			<h3>Using /generate endpoint with POST:</h3>
+			data <i>(default values if you send no payload)</i>:<br>
+			<textarea name="" id="json" rows="9"></textarea>			
+			<br>
+			<br>
+			<i>Example cURL:</i><br>
+			<textarea rows="5">
+curl -X POST -H "Content-Type: application/json" \
+	-d '{"length": int, "lowercase": bool, "uppercase": bool, "number": bool, "symbol": bool, "firstChar": int}' \
+	{base url}/generate
+			</textarea>
+			<br>
+			<script>
+				var myData = { "length": 13, "lowercase": true, "uppercase": true, "number": true, "symbol": true, "firstChar": 3 };
+
+				const dataString = JSON.stringify(myData, null, 2);
+				document.getElementById("json").innerHTML = dataString;
+			</script>
+		</body>
+</html>
