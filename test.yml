@@ -1,0 +1,43 @@
+---
+
+- name: "check localhost:8088 for correct response"
+  hosts: localhost
+  tasks:
+
+  - name: "POST: test"
+    uri:
+      url: "http://localhost:8088/generate"
+      method: POST
+      return_content: true
+      headers:
+        accept: "application/json"
+      body_format: json
+      body:
+        length: 32
+        uppercase: true
+        lowercase: true
+        number: true
+        symbol: true
+        firstChar: 5
+      status_code: 200
+    register: post_response
+
+
+
+  - name: "GET: test" 
+    uri:
+      url: "http://localhost:8088/generate/22/true/true/true/true/5"
+      method: GET
+      return_content: true
+      headers:
+        accept: "application/json"
+      body_format: json
+      status_code: 200
+    register: get_response
+
+
+  - debug:
+      msg: 
+        - "POST : password: {{ post_response.json.password }}"
+        - "GET  : password: {{ get_response.json.password }}"
+
